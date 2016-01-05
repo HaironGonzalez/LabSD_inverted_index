@@ -5,7 +5,15 @@
  */
 package leerxml;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author Hairon
@@ -30,16 +38,25 @@ public class Hilo extends Thread{
      
       String palabras = Texto.replaceAll("[^A-Za-z0-9-á-úÁ-Ú\n]", " ");
       
-
       System.out.print("Hebra "+ID+": "+palabras+"\n");
       
- 
+      PrintWriter writer = null;
+        try {
+            writer = new PrintWriter(""+ID+".txt", "UTF-8");
+        } catch (FileNotFoundException | UnsupportedEncodingException ex) {
+            Logger.getLogger(Hilo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        writer.print(palabras);
+        
+        writer.close();
+
     }
 
 public void ElminarCaracteresInutiles(String texto,int id){
         
 
-        
+
        
     
     }
