@@ -52,7 +52,7 @@ public void EliminarCaracteresInutiles(){
     // se reemplaza todo lo que no sea letras y numeros por espacio en blanco
     SinBasura = Texto.replaceAll("[^A-Za-z0-9-á-úÁ-Ú]", " ");
     // quita los espacios excesivos (deja cada palabra separada por espacio
-    SinBasura = SinBasura.replaceAll("\\s+"," ");
+    //SinBasura = SinBasura.replaceAll("\\s+"," ");
     //System.out.print("Hebra "+ID+": "+SinBasura+"\n");
     }
     
@@ -61,22 +61,36 @@ public void EliminarCaracteresInutiles(){
     }
 
     private void ContaryEnviar() {// contara cada palabra y la enviara a la basse de datos en mongo
+     int cont = 0;
+     String[] Aux=SinStopWords.split("\\s+",3 );
+     while(!Aux[1].contentEquals("")){
+     Aux=SinStopWords.split("\\s+",3 );
+    
+
+        while(SinStopWords.contains(" "+Aux[1]+" ")&&!Aux[1].contentEquals("")){
+            SinStopWords= SinStopWords.replaceFirst(" "+Aux[1]+" "," ");
+            cont++;
+       }
         
+        System.out.println("hay "+cont+" "+Aux[1]+"!!!!!!!!!");
+        cont=0;
+     }
+    
       
        
     }
 
     private void Crearfichero() {  // la hebra crea su respectivo archivo con Nombre ID y escribe el contenido del texto
-    PrintWriter writer = null;
-    try {
-        writer = new PrintWriter("ID "+ID+".txt", "UTF-8");
-    } catch (FileNotFoundException | UnsupportedEncodingException ex) {
-        Logger.getLogger(Hilo.class.getName()).log(Level.SEVERE, null, ex);
-    }
-        
-    writer.print(SinStopWords);
-        
-    writer.close();
+        PrintWriter writer = null;
+        try {
+            writer = new PrintWriter("ID "+ID+".txt", "UTF-8");
+        } catch (FileNotFoundException | UnsupportedEncodingException ex) {
+            Logger.getLogger(Hilo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        writer.print(SinStopWords);
+
+        writer.close();
     }
     
 

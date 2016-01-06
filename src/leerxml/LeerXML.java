@@ -69,10 +69,10 @@ public class LeerXML {
                        bText = false;
                        Hilo hilo = new Hilo(Texto,ID);
                        hilo.run();
+                       //System.out.println("cree un hilo");
                        Texto ="";
                        ID = 0;
-                   }
-                   
+                   }  
                }
                
                public void characters(char ch[], int start, int length) throws SAXException {
@@ -87,7 +87,7 @@ public class LeerXML {
                        
                    }
                    if (bID) {
-                       //System.out.print("ID : " + Aux+"\n");
+                       System.out.print("ID : " + Aux+"\n");
                        ID = Integer.parseInt(Aux);
                        bID = false;
                        bNS = false;
