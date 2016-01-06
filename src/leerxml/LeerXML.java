@@ -15,7 +15,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-public class LeerXML {
+public class LeerXML extends Thread{
 
    public static void main(String argv[]) {
        
@@ -68,8 +68,8 @@ public class LeerXML {
                        
                        bText = false;
                        Hilo hilo = new Hilo(Texto,ID);
-                       hilo.run();
-                       //System.out.println("cree un hilo");
+                       hilo.start();
+                       System.out.println("cree un hilo");
                        Texto ="";
                        ID = 0;
                    }  
