@@ -15,8 +15,9 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-public class LeerXML extends Thread{
-
+public class LeerXML {
+    
+   public static MongoDB mongodb = new MongoDB();
    public static void main(String argv[]) {
        
        
@@ -30,9 +31,10 @@ public class LeerXML extends Thread{
 
 	DefaultHandler handler;
                handler = new DefaultHandler() {
-               String Texto = new String();
+           
+               String Texto, Titulo = new String();
                int ID;
-               
+               int conHilos=0;
                boolean bID = false;
                boolean bText = false;
                boolean bTitle = false;
@@ -67,10 +69,14 @@ public class LeerXML extends Thread{
                        //System.out.println(Texto);
                        
                        bText = false;
-                       Hilo hilo = new Hilo(Texto,ID);
+                       Hilo hilo;
+                       hilo = new Hilo(Titulo+Texto,ID,mongodb);
                        hilo.start();
-                       System.out.println("cree un hilo");
+                       System.out.println("cree un hilo "+conHilos);
+                       mongodb.IngresarPaguina(Titulo, Texto, ID);
+                       conHilos++;
                        Texto ="";
+                       Titulo = "";
                        ID = 0;
                    }  
                }
@@ -80,14 +86,14 @@ public class LeerXML extends Thread{
                    String Aux =new String(ch, start, length);
                    
                    if (bTitle) {
-                       //System.out.print("TITULO : " + Aux+"\n");
-                        Texto+=Aux+"\n\n\n";    
+                       //System.out.print("TITULO : " + Aux+"\n"); 
+                       Titulo=" "+Aux+" ";    
                        //System.out.print("\n");
                        bTitle = false;
                        
                    }
                    if (bID) {
-                       System.out.print("ID : " + Aux+"\n");
+                       //System.out.print("ID : " + Aux+"\n");
                        ID = Integer.parseInt(Aux);
                        bID = false;
                        bNS = false;
@@ -105,7 +111,7 @@ public class LeerXML extends Thread{
                
            };
 
-       saxParser.parse("C:\\Users\\Hairon\\Desktop\\Destruidos\\Hidalgo\\Lab\\Lab 2\\eswiki-20151202-stub-meta-current1.xml", handler);
+       saxParser.parse("D:\\Destruidos\\Hidalgo\\Lab\\Lab 2\\eswiki-20151202-stub-meta-current1.xml", handler);
  
      } catch (Exception e) {
        e.printStackTrace();
