@@ -47,11 +47,12 @@ public class MongoDB  {
         }
     }
   
-    public void MostrarBDs(){    
+   /* public void MostrarBDs(){    
         List <String> basesDatos = mongo.getDatabaseNames();
         System.out.println("Bases de datos disponibles: " + basesDatos + "\n");
     }
-
+    */
+    // Ingresa los textos a la coleccion correspondiente
     public void IngresarPaguina(String titulo,String texto,int id){
         BasicDBObject documento = new BasicDBObject();            
         documento.put("ID",Integer.toString(id));
@@ -61,18 +62,18 @@ public class MongoDB  {
         tPaginas.insert(documento);
         documento.clear();
     }
-
+    
+    // Ingresa las palabras con su frecuencia e Id a la coleccion correspondiente
     public void IngresarPalabra(String palabra,int frecuencia,int id){
  
         
        // System.out.println("Cantidad tablas antes agregado: " + tIndice.count());
-        BasicDBObject documento = new BasicDBObject();            
-        documento.put("Palabra",palabra);
+        BasicDBObject documento = new BasicDBObject();        // creo un documento para ingresar a la db    
+        documento.put("Palabra",palabra);                       // se le ingresan los parametros al documento
         documento.put("ID", Integer.toString(id));
         documento.put("Frecuencia", frecuencia);
-        tIndice.insert(documento);
-        documento.clear();  // Hairon sabio :)   Hay que limpiar el documento antes de agregar otro, o bien, usar otro documento.
-        //System.out.println("Cantidad tablas despues agregado: " + tIndice.count());
+        tIndice.insert(documento);            // se inserta a la tabla de Indice (Palabras)
+        documento.clear();  // limpio el documento insertado
             
         
     }

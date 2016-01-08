@@ -38,7 +38,7 @@ public class LeerXML {
                boolean bTitle = false;
                boolean bNS = false;
                
-               
+               // lee las etiques de inicio
                @Override
                public void startElement(String uri, String localName,String qName,Attributes attributes) throws SAXException {
                    
@@ -47,6 +47,7 @@ public class LeerXML {
                    if (qName.equalsIgnoreCase("TITLE")) {
                        bTitle = true;
                    }
+                   // como hay 3 etiquetas ID por pagina Ocupamos la etiqueta NS para encontrar la primera etiqueta ID de cada una
                    if(qName.equalsIgnoreCase("NS"))bNS= true;
                            
                    if (qName.equalsIgnoreCase("ID")&& bNS) {
@@ -60,7 +61,7 @@ public class LeerXML {
                    
                    
                }
-               
+               // Acciones al encontrar las etiquetas de cierre
                public void endElement(String uri, String localName,String qName) throws SAXException {
                    
                    if (qName.equalsIgnoreCase("TEXT")) {
@@ -78,7 +79,7 @@ public class LeerXML {
                        ID = 1;
                    }  
                }
-               
+               // pasa por aqui cuando lee el contenido de las etiquetas
                public void characters(char ch[], int start, int length) throws SAXException {
                    
                    String Aux =new String(ch, start, length);
