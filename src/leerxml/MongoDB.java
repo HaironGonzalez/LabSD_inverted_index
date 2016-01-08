@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.text.Document;
 /**
  *
  * @author Hairon
@@ -33,7 +34,14 @@ public class MongoDB  {
             mongo = new Mongo("localhost", 27017);
             baseDatos = mongo.getDB("BaseDatos");
             tIndice = baseDatos.getCollection("Indice");
-            tPaginas = baseDatos.getCollection("Paginas");   
+            tPaginas = baseDatos.getCollection("Paginas");
+           
+            
+            BasicDBObject index = new BasicDBObject("Frecuencia",-1);
+            BasicDBObject index2 = new BasicDBObject("Palabra",1);
+  
+            tIndice.createIndex(index);
+            tPaginas.createIndex(index);
         } catch (UnknownHostException ex) {
             Logger.getLogger(MongoDB.class.getName()).log(Level.SEVERE, null, ex);
         }

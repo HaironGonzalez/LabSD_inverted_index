@@ -18,11 +18,9 @@ import org.xml.sax.helpers.DefaultHandler;
 public class LeerXML {
     
    public static MongoDB mongodb = new MongoDB();
+   
    public static void main(String argv[]) {
        
-       
-    
-
           
     try {
 
