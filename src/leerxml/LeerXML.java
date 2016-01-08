@@ -34,7 +34,7 @@ public class LeerXML {
            
                String Texto, Titulo = new String();
                int ID;
-               int conHilos=0;
+               int contHilos=1;
                boolean bID = false;
                boolean bText = false;
                boolean bTitle = false;
@@ -72,12 +72,12 @@ public class LeerXML {
                        Hilo hilo;
                        hilo = new Hilo(Titulo+Texto,ID,mongodb);
                        hilo.start();
-                       System.out.println("cree un hilo "+conHilos);
+                       //System.out.println("cree un hilo "+contHilos);
                        mongodb.IngresarPaguina(Titulo, Texto, ID);
-                       conHilos++;
+                       contHilos++;
                        Texto ="";
                        Titulo = "";
-                       ID = 0;
+                       ID = 1;
                    }  
                }
                

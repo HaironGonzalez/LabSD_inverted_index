@@ -48,7 +48,7 @@ public class MongoDB  {
         BasicDBObject documento = new BasicDBObject();            
         documento.put("ID",Integer.toString(id));
         documento.put("Titulo",titulo);
-        documento.put("Titulo",texto);
+        documento.put("Texto",texto);
         
         tPaginas.insert(documento);
         documento.clear();
@@ -60,7 +60,8 @@ public class MongoDB  {
        // System.out.println("Cantidad tablas antes agregado: " + tIndice.count());
         BasicDBObject documento = new BasicDBObject();            
         documento.put("Palabra",palabra);
-        documento.put("ID "+Integer.toString(id), Integer.toString(id));
+        documento.put("ID", Integer.toString(id));
+        documento.put("Frecuencia", frecuencia);
         tIndice.insert(documento);
         documento.clear();  // Hairon sabio :)   Hay que limpiar el documento antes de agregar otro, o bien, usar otro documento.
         //System.out.println("Cantidad tablas despues agregado: " + tIndice.count());
