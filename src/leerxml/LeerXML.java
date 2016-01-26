@@ -9,6 +9,8 @@ package leerxml;
  *
  * @author Hairon
  */
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.Attributes;
@@ -20,6 +22,7 @@ public class LeerXML {
    public static MongoDB mongodb = new MongoDB();
    
    public static void main(String argv[]) {
+        ExecutorService exec = Executors.newFixedThreadPool(50);// limita la cantidad max de hilos simultaneos
        
           
     try {
@@ -64,13 +67,16 @@ public class LeerXML {
                // Acciones al encontrar las etiquetas de cierre
                public void endElement(String uri, String localName,String qName) throws SAXException {
                    
+                    
+
                    if (qName.equalsIgnoreCase("TEXT")) {
                        //System.out.println(Texto);
                        
                        bText = false;
                        Hilo hilo;
                        hilo = new Hilo(Titulo+Texto,ID,mongodb);
-                       hilo.start();
+                        exec.execute(hilo);  // ejecuta el hilo
+                      
                        //System.out.println("cree un hilo "+contHilos);
                        mongodb.IngresarPaguina(Titulo, Texto, ID);
                        contHilos++;
@@ -110,7 +116,7 @@ public class LeerXML {
                
            };
 
-       saxParser.parse("D:\\Destruidos\\Hidalgo\\Lab\\Lab 2\\eswiki-20151202-stub-meta-current1.xml", handler);
+       saxParser.parse("D:\\Destruidos\\Hidalgo\\Lab\\Lab 2\\eswiki-20151202-pages-meta-current1.xml", handler);
  
      } catch (Exception e) {
        e.printStackTrace();

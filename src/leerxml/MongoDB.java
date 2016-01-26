@@ -37,11 +37,11 @@ public class MongoDB  {
             tPaginas = baseDatos.getCollection("Paginas");
            
             
-            BasicDBObject index = new BasicDBObject("Frecuencia",-1);
-            BasicDBObject index2 = new BasicDBObject("Palabra",1);
+            BasicDBObject index = new BasicDBObject("Frecuencia",-1);  // Error en la entrega comentar las 2 lineas de abajo!!!!
+           // BasicDBObject index2 = new BasicDBObject("Palabra",1);
   
             tIndice.createIndex(index);
-            tPaginas.createIndex(index);
+           // tPaginas.createIndex(index2);
         } catch (UnknownHostException ex) {
             Logger.getLogger(MongoDB.class.getName()).log(Level.SEVERE, null, ex);
         }

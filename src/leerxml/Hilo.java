@@ -40,10 +40,11 @@ public class Hilo extends Thread{
     //El hilo de ejecución
     @Override
     public void run() {
-     
+        System.out.println("Soy Hilo "+ID);
         EliminarCaracteresInutiles();
         EliminarStopWords();
         ContaryEnviar();
+        System.out.println("Soy Hilo "+ID+" y Termine");
        // Crearfichero();
                 
     }
@@ -71,7 +72,7 @@ public void EliminarCaracteresInutiles(){
             cont++;
        }      
         mongodb.IngresarPalabra(Aux[1], cont, ID);
-        //System.out.println("hay "+cont+" "+Aux[1]+"!!!!!!!!!");
+      // System.out.println("hay "+cont+" "+Aux[1]+"!!!!!!!!!");
         cont=0;
     }
  
